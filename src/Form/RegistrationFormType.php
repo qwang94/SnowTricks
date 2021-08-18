@@ -22,7 +22,7 @@ class RegistrationFormType extends AbstractType
             ->add('username', null, [
               'label' => 'username',
               'attr' => [
-                'placeholder' => 'username',
+                'placeholder' => 'Username',
               ],
               'row_attr' => [
                 'class' => 'form-floating',
@@ -31,7 +31,7 @@ class RegistrationFormType extends AbstractType
             ->add('firstname', null, [
               'label' => 'firstname',
               'attr' => [
-                'placeholder' => 'firstname',
+                'placeholder' => 'Firstname',
               ],
               'row_attr' => [
                 'class' => 'form-floating',
@@ -40,7 +40,7 @@ class RegistrationFormType extends AbstractType
             ->add('lastname', null, [
               'label' => 'lastname',
               'attr' => [
-                'placeholder' => 'lastname',
+                'placeholder' => 'Lastname',
               ],
               'row_attr' => [
                 'class' => 'form-floating',
