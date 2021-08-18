@@ -1,0 +1,21 @@
+.form-floating {
+  width: 400px ;
+}
+
+.signin-title {
+  margin-top: 10rem;
+  margin-bottom: 2rem;
+}
+
+.navbar-nav .nav-item .nav-link {
+  color: #000 !important;
+}
+
+.navbar-brand {
+  color: #000 !important;
+}
+
+.register-button {
+  margin-top: 1rem;
+  margin-bottom: 5rem;
+}

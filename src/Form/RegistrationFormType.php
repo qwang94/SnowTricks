@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,12 +19,48 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username')
-            ->add('firstname')
-            ->add('lastname')
-            ->add('email')
+            ->add('username', null, [
+              'label' => 'username',
+              'attr' => [
+                'placeholder' => 'username',
+              ],
+              'row_attr' => [
+                'class' => 'form-floating',
+              ],
+            ])
+            ->add('firstname', null, [
+              'label' => 'firstname',
+              'attr' => [
+                'placeholder' => 'firstname',
+              ],
+              'row_attr' => [
+                'class' => 'form-floating',
+              ],
+            ])
+            ->add('lastname', null, [
+              'label' => 'lastname',
+              'attr' => [
+                'placeholder' => 'lastname',
+              ],
+              'row_attr' => [
+                'class' => 'form-floating',
+              ],
+            ])
+            ->add('email', EmailType::class, [
+              'label' => 'Email',
+              'attr' => [
+                'placeholder' => 'Email',
+              ],
+              'row_attr' => [
+                'class' => 'form-floating',
+              ],
+            ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
+                'label_attr' => [
+                  'class' => 'checkbox-switch',
+                ],
+                'label' => 'J\'accepte les CGU',
                 'constraints' => [
                     new IsTrue([
                         'message' => 'You should agree to our terms.',
@@ -47,8 +84,18 @@ class RegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
-                'first_options' => ['label' => 'Mot de Passe'],
-                'second_options' => ['label' => 'Confirmez votre mot de passe'],
+                'first_options' => [
+                  'label' => 'Mot de Passe',
+                  'row_attr' => [
+                    'class' => 'form-floating',
+                  ],
+                 ],
+                'second_options' => [
+                  'label' => 'Confirmez votre mot de passe',
+                  'row_attr' => [
+                    'class' => 'form-floating',
+                  ],
+                ],
             ])
         ;
     }
