@@ -34,7 +34,7 @@ class Comment
     private $content;
 
     /**
-     * @ORM\ManyToOne(targetEntity=figure::class, inversedBy="comments")
+     * @ORM\ManyToOne(targetEntity=Figure::class, inversedBy="comments")
      */
     private $figure;
 

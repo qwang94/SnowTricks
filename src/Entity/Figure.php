@@ -30,7 +30,7 @@ class Figure
     private $description;
 
     /**
-     * @ORM\Column(type="datetime_immutable")
+     * @ORM\Column(type="datetime")
      */
     private $createdAt;
 
@@ -51,12 +51,12 @@ class Figure
     private $user;
 
     /**
-     * @ORM\ManyToMany(targetEntity=group::class, inversedBy="figures")
+     * @ORM\ManyToMany(targetEntity=Group::class, inversedBy="figures")
      */
     private $FigureGroup;
 
     /**
-     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="figure")
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="Figure")
      */
     private $comments;
 
@@ -95,12 +95,12 @@ class Figure
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    public function setCreatedAt(\DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
 
