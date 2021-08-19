@@ -36,3 +36,13 @@
 .agreeterms {
   margin-top: 1rem;
 }
+
+.reset-psw-info {
+  margin-left: 0.7rem;
+  width: 400px !important;
+}
+
+.checkemail {
+  margin-top: 10rem;
+  margin-bottom: 4rem;
+}
