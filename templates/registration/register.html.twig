@@ -20,7 +20,9 @@
           {{ form_row(registrationForm.lastname) }}
           {{ form_row(registrationForm.email) }}
           {{ form_row(registrationForm.plainPassword) }}
-          {{ form_row(registrationForm.agreeTerms) }}
+          <div class="agreeterms">
+            {{ form_row(registrationForm.agreeTerms) }}
+          </div>
           <button class="w-100 btn btn-lg btn-primary register-button" type="submit">Créer mon compte</button>
         {{ form_end(registrationForm) }}
       </div>

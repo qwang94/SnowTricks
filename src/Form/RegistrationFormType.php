@@ -20,37 +20,25 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('username', null, [
-              'label' => 'username',
-              'attr' => [
-                'placeholder' => 'Username',
-              ],
+              'label' => 'Username',
               'row_attr' => [
                 'class' => 'form-floating',
               ],
             ])
             ->add('firstname', null, [
-              'label' => 'firstname',
-              'attr' => [
-                'placeholder' => 'Firstname',
-              ],
+              'label' => 'Firstname',
               'row_attr' => [
                 'class' => 'form-floating',
               ],
             ])
             ->add('lastname', null, [
-              'label' => 'lastname',
-              'attr' => [
-                'placeholder' => 'Lastname',
-              ],
+              'label' => 'Lastname',
               'row_attr' => [
                 'class' => 'form-floating',
               ],
             ])
             ->add('email', EmailType::class, [
               'label' => 'Email',
-              'attr' => [
-                'placeholder' => 'Email',
-              ],
               'row_attr' => [
                 'class' => 'form-floating',
               ],
