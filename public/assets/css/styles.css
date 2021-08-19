@@ -11685,3 +11685,9 @@ body {
 .footer {
   padding: 5rem 0;
 }
+
+.edit-icon {
+  color: #fff;
+  margin-top: 2rem;
+  font-size: 1rem;  
+}

@@ -18,7 +18,19 @@ class FigureRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Figure::class);
     }
-
+    
+    /**
+    * @return Figure[] Returns an array of Figure objects
+    */
+    public function lastThree()
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.id', 'DESC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     // /**
     //  * @return Figure[] Returns an array of Figure objects
     //  */
