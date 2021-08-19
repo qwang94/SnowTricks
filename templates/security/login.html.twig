@@ -2,7 +2,7 @@
 
 {% block title %}Log in!{% endblock %}
 {% block stylesheets %}
-  <link rel="stylesheet" href="assets/css/signin.css">
+  <link rel="stylesheet" href="assets/css/security.css">
 {% endblock %}
 {% block body %}
 <div class="d-flex justify-content-center form-signin">
@@ -36,14 +36,18 @@
           Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
           See https://symfony.com/doc/current/security/remember_me.html
       #}  
-          <div class="mb3">
-            <div class="form-check form-switch">
+          <div class="mb3 row login-footer">
+
+            <div class="form-check form-switch col-sm remember-div">
               <input type="checkbox" name="_remember_me" class="form-check-input">
               <label class="checkbox-switch form-check-label" for="_remember_me">
                     Remember me
               </label>
             </div>
-            <a href="#" class="float-right">Mot de passe oublié ?</a>
+            <div class="col-sm">
+            <a href="#" class="float-right psw-forgot">Mot de passe oublié ?</a>
+            </div>
+            
           </div>
           
 
