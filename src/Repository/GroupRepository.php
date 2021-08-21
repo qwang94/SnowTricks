@@ -19,14 +19,14 @@ class GroupRepository extends ServiceEntityRepository
         parent::__construct($registry, Group::class);
     }
 
-    // /**
-    //  * @return Group[] Returns an array of Group objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+      * @return Group[] Returns an array of Group objects
+    */
+    public function findByFigure($value)
     {
         return $this->createQueryBuilder('g')
-            ->andWhere('g.exampleField = :val')
+            ->join('g.figures', 'fig')
+            ->andWhere('fig = :val')
             ->setParameter('val', $value)
             ->orderBy('g.id', 'ASC')
             ->setMaxResults(10)
@@ -34,8 +34,7 @@ class GroupRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    */
-
+  
     /*
     public function findOneBySomeField($value): ?Group
     {

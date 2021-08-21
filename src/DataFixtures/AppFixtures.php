@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Figure;
 use App\Entity\Group;
+use App\Entity\Media;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -46,6 +47,13 @@ class AppFixtures extends Fixture
             $manager->persist($group);  
 
             for ($j = 0; $j < 2; $j++) {
+                $media = new Media();
+                $media->setName($faker->words(3, true))
+                      ->setType('image')
+                      ->setSource('/assets/img/placeholder.png');
+                      
+                $manager->persist($media);
+
                 $figure = new Figure();
                 $figure->setName($faker->words(3, true))
                        ->setDescription($faker->text())
@@ -53,7 +61,7 @@ class AppFixtures extends Fixture
                        ->setSlug($faker->slug())
                        ->setUser($user)
                        ->addFigureGroup($group)
-                       ->setFile('/assets/img/placeholder.png');
+                       ->addMedia($media);
                 
                 $manager->persist($figure);
             }

@@ -40,11 +40,6 @@ class Figure
     private $slug;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $file;
-
-    /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="figures")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -64,6 +59,11 @@ class Figure
      * @ORM\OneToMany(targetEntity=Media::class, mappedBy="figure")
      */
     private $medias;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updatedAt;
 
     public function __construct()
     {
@@ -121,18 +121,6 @@ class Figure
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
-
-        return $this;
-    }
-
-    public function getFile(): ?string
-    {
-        return $this->file;
-    }
-
-    public function setFile(string $file): self
-    {
-        $this->file = $file;
 
         return $this;
     }
@@ -229,6 +217,18 @@ class Figure
                 $media->setFigure(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

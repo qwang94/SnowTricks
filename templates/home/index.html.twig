@@ -4,29 +4,10 @@
 
 {% block body %}
 
-<header class="masthead">
-    <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
-        <div class="d-flex justify-content-center">
-            <div class="text-center">
-                <h1 class="mx-auto my-0 text-uppercase">Snow Tricks</h1>
-                <h2 class="text-white-50 mx-auto mt-2 mb-5">Développons ensemble pour faire connaitre le snowboard et les différentes figures.</h2>
-                <a class="btn btn-primary" href="#">Voir les figures</a>
-            </div>
-        </div>
-    </div>
-</header>
+{% include "home/hero.html.twig" %}
 <section class="projects-section bg-light" id="projects">
     <div class="container px-4 px-lg-5">
-        <!-- Featured Project Row-->
-        <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
-            <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="assets/img/bg-masthead.jpg" alt="..." /></div>
-            <div class="col-xl-4 col-lg-5">
-                <div class="featured-text text-center text-lg-left">
-                    <h4>En bref</h4>
-                    <p class="text-black-50 mb-0">Snow Tricks est une plateforme permettant aux utilisateurs de partager et d'échanger sur leurs expériences de snowboard!</p>
-                </div>
-            </div>
-        </div> 
+        {% include "home/presentation.html.twig" %}
         {% for figure in figures %}
             {% if figure.id % 2 == 0 %}
                 <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
@@ -35,8 +16,10 @@
                         <div class="bg-black text-center h-100 project">
                             <div class="d-flex h-100">
                                 <div class="project-text w-100 my-auto text-center text-lg-left">
-                                    <h4 class="text-white">{{ figure.name }}</h4>
-                                    <p class="mb-0 text-white-50">{{ figure.description }}</p>
+                                    <a href="{{ path('show', {'slug': figure.slug}) }}">
+                                        <h4 class="text-white">{{ figure.name }}</h4>
+                                        <p class="mb-0 text-white-50">{{ figure.description }}</p>
+                                    </a>
                                     <hr class="d-none d-lg-block mb-0 ms-0" />
                                     <div class="d-flex justify-content-around">
                                         <a href="#">
@@ -59,9 +42,10 @@
                         <div class="bg-black text-center h-100 project">
                             <div class="d-flex h-100">
                                 <div class="project-text w-100 my-auto text-center text-lg-right">
-                                    <h4 class="text-white">{{ figure.name }}</h4>
-                                    <p class="mb-0 text-white-50">{{ figure.description }}</p>
-                                    
+                                    <a href="{{ path('show', {'slug': figure.slug}) }}">
+                                        <h4 class="text-white">{{ figure.name }}</h4>
+                                        <p class="mb-0 text-white-50">{{ figure.description }}</p>
+                                    </a>
                                     <hr class="d-none d-lg-block mb-0 me-0" />
                                     <div class="d-flex justify-content-around">
                                         <a href="#">

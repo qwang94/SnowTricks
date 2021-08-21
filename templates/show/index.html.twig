@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ figure.name }}{% endblock %}
+
+{% block stylesheets %}
+  <link rel="stylesheet" href="/assets/css/figure.css">
+{% endblock %}
+
+{% block body %}
+<div class="container" id="figure-container">
+    <div class="img-fluid">
+        <img class="figure-hero" src="/assets/img/demo-image-01.jpg" alt="{{ figure.name }}">
+        <h1 class="title p-1">
+            {{ figure.name }}
+        </h1>
+    </div>
+    <div class="row">
+        {# some code for media... #}
+    </div>
+    <p class="content text-justify">
+        {{ figure.description }}
+    </p>
+    <div class="row">
+        <div class="col">
+            <span class="badge rounded-pill bg-primary">Créé le {{ figure.createdAt | date("m/d/Y") }}</span>
+        </div>
+        <div class="col">
+            <span class="badge rounded-pill bg-info">Groupe(s) : 
+            {% for group in groups %}
+                <span>{{ group.name }}</span>
+            {% endfor %}
+            </span>
+        </div>
+        {% if figure.updatedAt %}
+            <div class="col">
+                <span class="badge rounded-pill bg-dark">Mis à jour le : {{ figure.updatedAt | date("m/d/Y") }}</span>
+            </div>
+        {% endif %}
+    </div>
+    <hr>
+    <div>
+        
+    </div>
+</div>
+{% endblock %}

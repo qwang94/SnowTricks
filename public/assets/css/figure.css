@@ -1,0 +1,33 @@
+.navbar-nav .nav-item .nav-link {
+    color: #000 !important;
+  }
+  
+.navbar-brand {
+    color: #000 !important;
+}
+
+#figure-container {
+    margin-top: 3rem;
+}
+
+#figure-container h1 {
+    position: absolute;
+    top: 30rem;
+    left: 30rem;
+    color: white;
+}
+
+.figure-hero {
+    margin-top: 3rem;
+    width: 100%;
+}
+
+.img-fluid {
+    position: relative;
+}
+
+@media (max-width: 1260px) { 
+    #figure-container h1 {
+        left: 12rem;
+    } 
+}

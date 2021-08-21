@@ -11691,3 +11691,7 @@ body {
   margin-top: 2rem;
   font-size: 1rem;  
 }
+
+.bg-black a {
+    text-decoration: none;
+}
