@@ -1,0 +1,23 @@
+<div class="row">
+    <div class="col-md-12">
+        <h3 class="text-center mb-5"> Espace de discussion </h3>
+        
+        <div class="row">
+            {% for comment in comments %}
+                <div class="col-md-12">
+                    <div class="media col-md-12"> 
+                        <img class="mr-3 rounded-circle col-md-3" alt="Bootstrap Media Preview" src="https://i.imgur.com/stD0Q19.jpg" />
+                        <div class="media-body col-md-9">
+                            <div class="row">
+                                <div class="col-8 d-flex">
+                                    <h5>{{ comment.user.getUsername() }}</h5> &nbsp; <span> le {{ comment.createdAt | date("m/d/Y") }} </span>
+                                </div>
+                            </div> 
+                            <p>{{ comment.content }} </p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

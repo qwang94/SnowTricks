@@ -4,6 +4,7 @@
 
 {% block stylesheets %}
   <link rel="stylesheet" href="/assets/css/figure.css">
+  <link rel="stylesheet" href="/assets/css/comment.css">
 {% endblock %}
 
 {% block body %}
@@ -38,8 +39,24 @@
         {% endif %}
     </div>
     <hr>
-    <div>
-        
+    {% if app.user %}
+        <div class="col-12 justify-content-center">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="card">
+            <h3 class="text-center mb-5"> Quelques choses à dire ? </h3>
+            {{ form_start(form) }}
+                {{ form_row(form.content) }}
+            {{ form_end(form)}}
+        </div>
+    {% endif %}
+    
+    <div class="card">
+        {{ include('show/comment.html.twig', {comments: comments}) }}
     </div>
 </div>
 {% endblock %}
