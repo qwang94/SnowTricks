@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Figure index{% endblock %}
+
+{% block body %}
+    <h1>Figure index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>CreatedAt</th>
+                <th>Slug</th>
+                <th>UpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for figure in figures %}
+            <tr>
+                <td>{{ figure.id }}</td>
+                <td>{{ figure.name }}</td>
+                <td>{{ figure.description }}</td>
+                <td>{{ figure.createdAt ? figure.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ figure.slug }}</td>
+                <td>{{ figure.updatedAt ? figure.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('figure_show', {'id': figure.id}) }}">show</a>
+                    <a href="{{ path('figure_edit', {'id': figure.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('figure_new') }}">Create new</a>
+{% endblock %}

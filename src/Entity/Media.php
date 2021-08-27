@@ -33,7 +33,8 @@ class Media
     private $source;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Figure::class, inversedBy="medias")
+     * @ORM\ManyToOne(targetEntity=Figure::class, inversedBy="media")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $figure;
 

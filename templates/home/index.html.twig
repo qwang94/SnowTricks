@@ -16,18 +16,22 @@
                         <div class="bg-black text-center h-100 project">
                             <div class="d-flex h-100">
                                 <div class="project-text w-100 my-auto text-center text-lg-left">
-                                    <a href="{{ path('show', {'slug': figure.slug}) }}">
+                                    <a href="{{ path('figure_show', {'slug': figure.slug}) }}">
                                         <h4 class="text-white">{{ figure.name }}</h4>
                                         <p class="mb-0 text-white-50">{{ figure.description }}</p>
                                     </a>
                                     <hr class="d-none d-lg-block mb-0 ms-0" />
                                     <div class="d-flex justify-content-around">
-                                        <a href="#">
+                                        <a href="{{ path('figure_edit', {'id': figure.id}) }}">
                                             <i class="fas fa-edit edit-icon"></i>
                                         </a>
-                                        <a href="#">
-                                            <i class="fas fa-trash-alt edit-icon"></i>
-                                        </a>
+                                        <form method="post" 
+                                              action="{{ path('figure_delete', {'id': figure.id}) }}" 
+                                              onsubmit="return confirm('Êtes-vous sur de vouloir supprimer cette figure?');"
+                                        >
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ figure.id) }}">
+                                            <button class="submit-button" type="submit"><i class="fas fa-trash-alt edit-icon"></i></button>
+                                        </form>
                                     </div>
                                 </div>
                                 
@@ -42,7 +46,7 @@
                         <div class="bg-black text-center h-100 project">
                             <div class="d-flex h-100">
                                 <div class="project-text w-100 my-auto text-center text-lg-right">
-                                    <a href="{{ path('show', {'slug': figure.slug}) }}">
+                                    <a href="{{ path('figure_show', {'slug': figure.slug}) }}">
                                         <h4 class="text-white">{{ figure.name }}</h4>
                                         <p class="mb-0 text-white-50">{{ figure.description }}</p>
                                     </a>
@@ -51,8 +55,15 @@
                                         <a href="#">
                                             <i class="fas fa-edit edit-icon"></i>
                                         </a>
-                                        <a href="#">
-                                            <i class="fas fa-trash-alt edit-icon"></i>
+                                        <form method="post" 
+                                              action="{{ path('figure_delete', {'id': figure.id}) }}" 
+                                              onsubmit="return confirm('Êtes-vous sur de vouloir supprimer cette figure?');"
+                                        >
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ figure.id) }}">
+                                            <button class="submit-button" type="submit"><i class="fas fa-trash-alt edit-icon"></i></button>
+                                        </form>
+                                        <a href="{{ path('figure_delete', {'id': figure.id}) }}">
+                                            
                                         </a>
                                     </div>
                                 </div>

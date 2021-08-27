@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création Figure{% endblock %}
+{% block stylesheets %}
+  <link rel="stylesheet" href="/assets/css/figure.css">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="figure-h1 text-center">Créez votre figure</h1>
+
+        {{ include('figure/_form.html.twig') }}
+        <div class="mb-5">
+            <a href="{{ path('home') }}">Retourner à la liste</a>
+        </div>
+    </div>
+{% endblock %}

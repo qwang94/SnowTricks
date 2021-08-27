@@ -27,8 +27,8 @@
         </div>
         <div class="col">
             <span class="badge rounded-pill bg-info">Groupe(s) : 
-            {% for group in groups %}
-                <span>{{ group.name }}</span>
+            {% for category in categories %}
+                <span>{{ category.name }}</span>
             {% endfor %}
             </span>
         </div>
@@ -56,7 +56,7 @@
     {% endif %}
     
     <div class="card">
-        {{ include('show/comment.html.twig', {comments: comments}) }}
+        {{ include('figure/comment.html.twig', {comments: comments}) }}
     </div>
 </div>
 {% endblock %}

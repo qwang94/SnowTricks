@@ -6,6 +6,15 @@
     color: #000 !important;
 }
 
+.figure-h1 {
+    margin-top: 10rem;
+    margin-bottom: 2rem;
+}
+
+.figure-field {
+    margin-bottom: 0.5rem;
+}
+
 #figure-container {
     margin-top: 3rem;
 }

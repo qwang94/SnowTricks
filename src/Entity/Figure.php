@@ -2,13 +2,16 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\FigureRepository;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=FigureRepository::class)
+ * @UniqueEntity("name", message="Ce nom de figure a déjà été pris.")
  */
 class Figure
 {
@@ -20,7 +23,7 @@ class Figure
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $name;
 
@@ -46,30 +49,30 @@ class Figure
     private $user;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Group::class, inversedBy="figures")
-     */
-    private $FigureGroup;
-
-    /**
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="Figure")
      */
     private $comments;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Media::class, mappedBy="figure")
-     */
-    private $medias;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Media::class, mappedBy="figure", orphanRemoval=true, cascade={"persist"})
+     */
+    private $media;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="figures")
+     */
+    private $category;
+
     public function __construct()
     {
-        $this->FigureGroup = new ArrayCollection();
         $this->comments = new ArrayCollection();
-        $this->medias = new ArrayCollection();
+        $this->media = new ArrayCollection();
+        $this->category = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -138,30 +141,6 @@ class Figure
     }
 
     /**
-     * @return Collection|group[]
-     */
-    public function getFigureGroup(): Collection
-    {
-        return $this->FigureGroup;
-    }
-
-    public function addFigureGroup(group $figureGroup): self
-    {
-        if (!$this->FigureGroup->contains($figureGroup)) {
-            $this->FigureGroup[] = $figureGroup;
-        }
-
-        return $this;
-    }
-
-    public function removeFigureGroup(group $figureGroup): self
-    {
-        $this->FigureGroup->removeElement($figureGroup);
-
-        return $this;
-    }
-
-    /**
      * @return Collection|Comment[]
      */
     public function getComments(): Collection
@@ -191,36 +170,6 @@ class Figure
         return $this;
     }
 
-    /**
-     * @return Collection|Media[]
-     */
-    public function getMedias(): Collection
-    {
-        return $this->medias;
-    }
-
-    public function addMedia(Media $media): self
-    {
-        if (!$this->medias->contains($media)) {
-            $this->medias[] = $media;
-            $media->setFigure($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMedia(Media $media): self
-    {
-        if ($this->medias->removeElement($media)) {
-            // set the owning side to null (unless already changed)
-            if ($media->getFigure() === $this) {
-                $media->setFigure(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
@@ -229,6 +178,60 @@ class Figure
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Media[]
+     */
+    public function getMedia(): Collection
+    {
+        return $this->media;
+    }
+
+    public function addMedium(Media $medium): self
+    {
+        if (!$this->media->contains($medium)) {
+            $this->media[] = $medium;
+            $medium->setFigure($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMedium(Media $medium): self
+    {
+        if ($this->media->removeElement($medium)) {
+            // set the owning side to null (unless already changed)
+            if ($medium->getFigure() === $this) {
+                $medium->setFigure(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Category[]
+     */
+    public function getCategory(): Collection
+    {
+        return $this->category;
+    }
+
+    public function addCategory(Category $category): self
+    {
+        if (!$this->category->contains($category)) {
+            $this->category[] = $category;
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): self
+    {
+        $this->category->removeElement($category);
 
         return $this;
     }

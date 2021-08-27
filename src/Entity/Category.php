@@ -2,16 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\GroupRepository;
+use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=GroupRepository::class)
- * @ORM\Table(name="`group`")
+ * @ORM\Entity(repositoryClass=CategoryRepository::class)
  */
-class Group
+class Category
 {
     /**
      * @ORM\Id
@@ -26,17 +25,17 @@ class Group
     private $name;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $slug;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Figure::class, mappedBy="FigureGroup")
+     * @ORM\ManyToMany(targetEntity=Figure::class, mappedBy="category")
      */
     private $figures;
 
@@ -67,7 +66,7 @@ class Group
         return $this->description;
     }
 
-    public function setDescription(string $description): self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
 
@@ -79,7 +78,7 @@ class Group
         return $this->slug;
     }
 
-    public function setSlug(string $slug): self
+    public function setSlug(?string $slug): self
     {
         $this->slug = $slug;
 
@@ -98,7 +97,7 @@ class Group
     {
         if (!$this->figures->contains($figure)) {
             $this->figures[] = $figure;
-            $figure->addFigureGroup($this);
+            $figure->addCategory($this);
         }
 
         return $this;
@@ -107,7 +106,7 @@ class Group
     public function removeFigure(Figure $figure): self
     {
         if ($this->figures->removeElement($figure)) {
-            $figure->removeFigureGroup($this);
+            $figure->removeCategory($this);
         }
 
         return $this;

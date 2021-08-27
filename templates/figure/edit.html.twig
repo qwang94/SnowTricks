@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier la figure{% endblock %}
+{% block stylesheets %}
+  <link rel="stylesheet" href="/assets/css/figure.css">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="figure-h1 text-center">Modifier la figure</h1>
+
+        {{ include('figure/_form.html.twig', {'button_label': 'Update'}) }}
+        
+        <div class="mb-5">
+            <a href="{{ path('home') }}">back to list</a>
+        </div>
+    </div>
+{% endblock %}

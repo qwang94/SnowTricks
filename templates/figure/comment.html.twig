@@ -1,12 +1,12 @@
 <div class="row">
     <div class="col-md-12">
-        <h3 class="text-center mb-5"> Espace de discussion </h3>
+        <h3 class="text-center mb-5">Espace de discussion</h3>
         
         <div class="row">
             {% for comment in comments %}
                 <div class="col-md-12">
                     <div class="media col-md-12"> 
-                        <img class="mr-3 rounded-circle col-md-3" alt="Bootstrap Media Preview" src="https://i.imgur.com/stD0Q19.jpg" />
+                        <img class="mr-3 rounded-circle col-md-3" alt="{{ comment.user.getUsername() }}" src="https://i.imgur.com/stD0Q19.jpg" />
                         <div class="media-body col-md-9">
                             <div class="row">
                                 <div class="col-8 d-flex">
@@ -18,6 +18,11 @@
                     </div>
                 </div>
             {% endfor %}
+            <div class="d-flex justify-content-center">
+                {% do comments.setPageRange(2) %}
+                {{ knp_pagination_render(comments, 'partials/pagination.html.twig') }}
+            </div>
         </div>
     </div>
 </div>
+{# {{ comment.user.getPhoto() }} #}

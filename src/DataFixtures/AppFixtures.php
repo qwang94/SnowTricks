@@ -2,8 +2,8 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Category;
 use App\Entity\Figure;
-use App\Entity\Group;
 use App\Entity\Media;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -39,12 +39,12 @@ class AppFixtures extends Fixture
 
         // create figures and groups
         for ($i = 0; $i < 5; $i++) {
-            $group = new Group();
-            $group->setName($faker->name())
-                  ->setDescription($faker->words(10, true))
-                  ->setSlug($faker->slug());
+            $category = new Category();
+            $category->setName($faker->name())
+                     ->setDescription($faker->words(10, true))
+                     ->setSlug($faker->slug());
 
-            $manager->persist($group);  
+            $manager->persist($category);  
 
             for ($j = 0; $j < 2; $j++) {
                 $media = new Media();
@@ -60,8 +60,8 @@ class AppFixtures extends Fixture
                        ->setCreatedAt($faker->dateTimeBetween('-6 month', 'now'))
                        ->setSlug($faker->slug())
                        ->setUser($user)
-                       ->addFigureGroup($group)
-                       ->addMedia($media);
+                       ->addCategory($category)
+                       ->addMedium($media);
                 
                 $manager->persist($figure);
             }
