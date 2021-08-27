@@ -30,12 +30,13 @@ class Category
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable="true")
      */
     private $slug;
 
     /**
      * @ORM\ManyToMany(targetEntity=Figure::class, mappedBy="category")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $figures;
 

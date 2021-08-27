@@ -16,7 +16,7 @@ class HomeController extends AbstractController
     public function index(FigureRepository $figureRepository): Response
     {
         return $this->render('home/index.html.twig', [
-            'figures' => $figureRepository->lastThree(),
+            'figures' => $figureRepository->findAll(),
         ]);
     }
 }

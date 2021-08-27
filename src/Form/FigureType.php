@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Category;
 use App\Entity\Figure;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -42,9 +44,11 @@ class FigureType extends AbstractType
                     'class' => 'form-control',
                 ]
             ])
-            ->add('category', TextType::class, [
-                'mapped' => false,
-                'label' => 'Catégorie de la figure',
+            ->add('category', EntityType::class, [
+                'class' => Category::class,
+                'choice_label' => 'name',
+                'multiple' => true,
+                'expanded' => false,
                 'row_attr' => [
                     'class' => 'form-group figure-field',
                   ],
@@ -58,10 +62,21 @@ class FigureType extends AbstractType
                 'mapped' => false,
                 'required' => false,
                 'row_attr' => [
-                    'class' => 'form-group figure-field',
+                    'class' => 'form-group figure-field col-md-6',
                   ],
                 'attr' => [
                     'class' => 'form-control-file',
+                ]
+            ])
+            ->add('videos', TextType::class, [
+                'label' => 'Lien youtube',
+                'mapped' => false,
+                'required' => false,
+                'row_attr' => [
+                    'class' => 'form-group figure-field col-md-6',
+                  ],
+                'attr' => [
+                    'class' => 'form-control',
                 ]
             ])
         ;

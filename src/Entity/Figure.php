@@ -64,15 +64,21 @@ class Figure
     private $media;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="figures")
+     * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="figures", cascade={"persist"})
      */
     private $category;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Video::class, mappedBy="figure", orphanRemoval=true, cascade={"persist"})
+     */
+    private $videos;
 
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->media = new ArrayCollection();
         $this->category = new ArrayCollection();
+        $this->videos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -232,6 +238,36 @@ class Figure
     public function removeCategory(Category $category): self
     {
         $this->category->removeElement($category);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Video[]
+     */
+    public function getVideos(): Collection
+    {
+        return $this->videos;
+    }
+
+    public function addVideo(Video $video): self
+    {
+        if (!$this->videos->contains($video)) {
+            $this->videos[] = $video;
+            $video->setFigure($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVideo(Video $video): self
+    {
+        if ($this->videos->removeElement($video)) {
+            // set the owning side to null (unless already changed)
+            if ($video->getFigure() === $this) {
+                $video->setFigure(null);
+            }
+        }
 
         return $this;
     }

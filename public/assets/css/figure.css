@@ -12,7 +12,7 @@
 }
 
 .figure-field {
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
 }
 
 #figure-container {
@@ -28,7 +28,7 @@
 
 .figure-hero {
     margin-top: 3rem;
-    width: 100%;
+    width: 50%;
 }
 
 .img-fluid {

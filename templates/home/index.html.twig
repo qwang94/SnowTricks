@@ -21,18 +21,20 @@
                                         <p class="mb-0 text-white-50">{{ figure.description }}</p>
                                     </a>
                                     <hr class="d-none d-lg-block mb-0 ms-0" />
-                                    <div class="d-flex justify-content-around">
-                                        <a href="{{ path('figure_edit', {'id': figure.id}) }}">
-                                            <i class="fas fa-edit edit-icon"></i>
-                                        </a>
-                                        <form method="post" 
-                                              action="{{ path('figure_delete', {'id': figure.id}) }}" 
-                                              onsubmit="return confirm('Êtes-vous sur de vouloir supprimer cette figure?');"
-                                        >
-                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ figure.id) }}">
-                                            <button class="submit-button" type="submit"><i class="fas fa-trash-alt edit-icon"></i></button>
-                                        </form>
-                                    </div>
+                                    {% if app.user %}
+                                        <div class="d-flex justify-content-around">
+                                            <a href="{{ path('figure_edit', {'id': figure.id}) }}">
+                                                <i class="fas fa-edit edit-icon"></i>
+                                            </a>
+                                            <form method="post" 
+                                                action="{{ path('figure_delete', {'id': figure.id}) }}" 
+                                                onsubmit="return confirm('Êtes-vous sur de vouloir supprimer cette figure?');"
+                                            >
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ figure.id) }}">
+                                                <button class="submit-button" type="submit"><i class="fas fa-trash-alt edit-icon"></i></button>
+                                            </form>
+                                        </div>
+                                    {% endif %}
                                 </div>
                                 
                             </div>
@@ -51,21 +53,20 @@
                                         <p class="mb-0 text-white-50">{{ figure.description }}</p>
                                     </a>
                                     <hr class="d-none d-lg-block mb-0 me-0" />
-                                    <div class="d-flex justify-content-around">
-                                        <a href="#">
-                                            <i class="fas fa-edit edit-icon"></i>
-                                        </a>
-                                        <form method="post" 
-                                              action="{{ path('figure_delete', {'id': figure.id}) }}" 
-                                              onsubmit="return confirm('Êtes-vous sur de vouloir supprimer cette figure?');"
-                                        >
-                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ figure.id) }}">
-                                            <button class="submit-button" type="submit"><i class="fas fa-trash-alt edit-icon"></i></button>
-                                        </form>
-                                        <a href="{{ path('figure_delete', {'id': figure.id}) }}">
-                                            
-                                        </a>
-                                    </div>
+                                    {% if app.user %}
+                                        <div class="d-flex justify-content-around">
+                                            <a href="{{ path('figure_edit', {'id': figure.id}) }}">
+                                                <i class="fas fa-edit edit-icon"></i>
+                                            </a>
+                                            <form method="post" 
+                                                action="{{ path('figure_delete', {'id': figure.id}) }}" 
+                                                onsubmit="return confirm('Êtes-vous sur de vouloir supprimer cette figure?');"
+                                            >
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ figure.id) }}">
+                                                <button class="submit-button" type="submit"><i class="fas fa-trash-alt edit-icon"></i></button>
+                                            </form>
+                                        </div>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>

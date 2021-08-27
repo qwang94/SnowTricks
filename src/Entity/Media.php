@@ -27,10 +27,6 @@ class Media
      */
     private $type;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $source;
 
     /**
      * @ORM\ManyToOne(targetEntity=Figure::class, inversedBy="media")
@@ -63,18 +59,6 @@ class Media
     public function setType(string $type): self
     {
         $this->type = $type;
-
-        return $this;
-    }
-
-    public function getSource(): ?string
-    {
-        return $this->source;
-    }
-
-    public function setSource(string $source): self
-    {
-        $this->source = $source;
 
         return $this;
     }

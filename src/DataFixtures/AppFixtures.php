@@ -49,8 +49,7 @@ class AppFixtures extends Fixture
             for ($j = 0; $j < 2; $j++) {
                 $media = new Media();
                 $media->setName($faker->words(3, true))
-                      ->setType('image')
-                      ->setSource('/assets/img/placeholder.png');
+                      ->setType('image');
                       
                 $manager->persist($media);
 

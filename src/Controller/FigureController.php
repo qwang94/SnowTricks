@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Entity\Figure;
 use App\Entity\Media;
+use App\Entity\Video;
 use App\Form\FigureType;
 use App\Form\CommentType;
 use App\Repository\CategoryRepository;
@@ -18,8 +19,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
-
 
 /**
  * @Route("/figure")
@@ -39,6 +40,9 @@ class FigureController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $images = $form->get("media")->getData();
             
+            $video = new Video();
+            $video->setSource($form->get('videos')->getData());
+
             foreach($images as $image) {
                 $extension = $image->guessExtension();
                 $file = md5(uniqid()) . '.' . $extension; 
@@ -50,18 +54,20 @@ class FigureController extends AbstractController
 
                 $media = new Media();
                 $media->setName($file)
-                      ->setType($extension)
-                      ->setSource($this->getParameter('images_directory') .'/'. $file);
+                      ->setType($extension);
+
                 $figure->addMedium($media)
                        ->setUser($user)
                        ->setCreatedAt(new DateTime());
             }
+            
+            $figure->addVideo($video);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($figure);
             $entityManager->flush();
 
-            return $this->redirectToRoute('figure_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('figure_show', ['slug' => $figure->getSlug()]);
         }
 
         return $this->renderForm('figure/new.html.twig', [
@@ -122,11 +128,35 @@ class FigureController extends AbstractController
     {
         $form = $this->createForm(FigureType::class, $figure);
         $form->handleRequest($request);
+        $user = $this->getUser();
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $images = $form->get("media")->getData();
+            
+            $video = new Video();
+            $video->setSource($form->get('videos')->getData());
+            
+            foreach($images as $image) {
+                $extension = $image->guessExtension();
+                $file = md5(uniqid()) . '.' . $extension; 
+                
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $file
+                );
+
+                $media = new Media();
+                $media->setName($file)
+                      ->setType($extension);
+                $figure->addMedium($media)
+                       ->setUser($user)
+                       ->setCreatedAt(new DateTime());
+            }
+            $figure->addVideo($video);
+
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('figure_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('figure_show', ['slug' => $figure->getSlug()]);
         }
 
         return $this->renderForm('figure/edit.html.twig', [
@@ -146,6 +176,28 @@ class FigureController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('figure_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('home');
+    }
+
+    /**
+     * @Route("/delete-image/{id}", name="delete_image", methods={"DELETE"})
+     */
+    public function deleteImage(Media $image, Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+        // Verify is token is valid
+        if ($this->isCsrfTokenValid('delete'.$image->getId(), $data['_token'])) {
+            $name = $image->getName();
+            // Delete file from the directory
+            unlink($this->getParameter('images_directory').'/'.$name);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($image);
+            $entityManager->flush();
+
+            return new JsonResponse(['success' => 1]);
+        } else {
+            return new JsonResponse(['error' => 'Token Invalid'], 400);
+        }
     }
 }

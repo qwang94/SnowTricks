@@ -7,16 +7,22 @@
   <link rel="stylesheet" href="/assets/css/comment.css">
 {% endblock %}
 
+{% set hero = figure.media|first %}
 {% block body %}
 <div class="container" id="figure-container">
     <div class="img-fluid">
-        <img class="figure-hero" src="/assets/img/demo-image-01.jpg" alt="{{ figure.name }}">
+        <img class="figure-hero img-fluid img-thumbnail" src="{{ asset('/uploads/' ~ figure.media|first.name)}}" alt="{{ figure.name }}">
         <h1 class="title p-1">
             {{ figure.name }}
         </h1>
     </div>
     <div class="row">
-        {# some code for media... #}
+        {% for image in figure.media %}
+            <img class="col-md-2 img-fluid img-thumbnail" src="{{ asset('/uploads/' ~ image.name)}}" alt="{{ figure.name }}">
+        {% endfor %}
+        {% for video in figure.videos %}
+            <iframe class="col-md-2" src="{{ video.source }}" width="30%" frameborder="0" allowfullscreen></iframe> 
+        {% endfor %}
     </div>
     <p class="content text-justify">
         {{ figure.description }}
@@ -29,6 +35,7 @@
             <span class="badge rounded-pill bg-info">Groupe(s) : 
             {% for category in categories %}
                 <span>{{ category.name }}</span>
+                {{ loop.last ? '':', '}}
             {% endfor %}
             </span>
         </div>

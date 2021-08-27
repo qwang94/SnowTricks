@@ -9,9 +9,25 @@
     </div>
     <div class="row">
         {{ form_row(form.category) }}
-        {{ form_row(form.media) }}
+        
     </div>
-    {# <button class="btn">{{ button_label|default('Sauvegarder') }}</button> #}
+    <div class="row">
+        {{ form_row(form.media) }}
+        {{ form_row(form.videos) }}
+    </div>
+    {# Verify if the route is figure_edit #}
+    {% if app.request.attributes.get('_route') == 'figure_edit' %}
+        <h2>Images</h2>
+        {% for image in figure.media %}
+            <div>
+                <img src="{{ asset('/uploads/' ~ image.name) }}" alt="{{ figure.name }}" width="150">
+                <a href="{{ path('delete_image', {'id': image.id}) }}"
+                 data-delete data-token="{{ csrf_token('delete' ~ image.id) }}"
+                >Supprimer</a>
+            </div>
+            <hr>
+        {% endfor %}
+    {% endif %}
     <div class="text-center">
         <button class="w-50 btn btn-lg btn-primary" type="submit">Sauvegarder</button>
     </div>
