@@ -41,7 +41,9 @@ class FigureController extends AbstractController
             $images = $form->get("media")->getData();
             
             $video = new Video();
-            $video->setSource($form->get('videos')->getData());
+            $source = $form->get('videos')->getData();
+            $embed_source = str_replace("watch?v=", "embed/", $source);
+            $video->setSource($embed_source);
 
             foreach($images as $image) {
                 $extension = $image->guessExtension();
@@ -134,7 +136,9 @@ class FigureController extends AbstractController
             $images = $form->get("media")->getData();
             
             $video = new Video();
-            $video->setSource($form->get('videos')->getData());
+            $source = $form->get('videos')->getData();
+            $embed_source = str_replace("watch?v=", "embed/", $source);
+            $video->setSource($embed_source);
             
             foreach($images as $image) {
                 $extension = $image->guessExtension();

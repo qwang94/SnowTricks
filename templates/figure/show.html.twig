@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="/assets/css/comment.css">
 {% endblock %}
 
-{% set hero = figure.media|first %}
 {% block body %}
 <div class="container" id="figure-container">
     <div class="img-fluid">
@@ -21,8 +20,16 @@
             <img class="col-md-2 img-fluid img-thumbnail" src="{{ asset('/uploads/' ~ image.name)}}" alt="{{ figure.name }}">
         {% endfor %}
         {% for video in figure.videos %}
-            <iframe class="col-md-2" src="{{ video.source }}" width="30%" frameborder="0" allowfullscreen></iframe> 
+            <iframe 
+                class="col-md-2"
+                src="{{ video.source }}" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+            </iframe>
         {% endfor %}
+        
     </div>
     <p class="content text-justify">
         {{ figure.description }}
