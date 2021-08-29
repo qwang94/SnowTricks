@@ -8,73 +8,40 @@
 <section class="projects-section bg-light" id="projects">
     <div class="container px-4 px-lg-5">
         {% include "home/presentation.html.twig" %}
-        {% for figure in figures %}
-            {% if figure.id % 2 == 0 %}
-                <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
-                    <div class="col-lg-6"><img class="img-fluid" src="assets/img/demo-image-01.jpg" alt="..." /></div>
-                    <div class="col-lg-6">
-                        <div class="bg-black text-center h-100 project">
-                            <div class="d-flex h-100">
-                                <div class="project-text w-100 my-auto text-center text-lg-left">
-                                    <a href="{{ path('figure_show', {'slug': figure.slug}) }}">
-                                        <h4 class="text-white">{{ figure.name }}</h4>
-                                        <p class="mb-0 text-white-50">{{ figure.description }}</p>
-                                    </a>
-                                    <hr class="d-none d-lg-block mb-0 ms-0" />
-                                    {% if app.user %}
-                                        <div class="d-flex justify-content-around">
-                                            <a href="{{ path('figure_edit', {'id': figure.id}) }}">
-                                                <i class="fas fa-edit edit-icon"></i>
-                                            </a>
-                                            <form method="post" 
-                                                action="{{ path('figure_delete', {'id': figure.id}) }}" 
-                                                onsubmit="return confirm('Êtes-vous sur de vouloir supprimer cette figure?');"
-                                            >
-                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ figure.id) }}">
-                                                <button class="submit-button" type="submit"><i class="fas fa-trash-alt edit-icon"></i></button>
-                                            </form>
-                                        </div>
-                                    {% endif %}
-                                </div>
-                                
-                            </div>
-                        </div>
+        <div class="row">
+            {% for figure in figures %}
+                <div class="card hp-card
+                    {% if loop.first %} 
+                        col-md-2 col-md-offset-1 
+                    {% else %} 
+                        col-md-2 
+                    {% endif %}" style="width: 18rem;"
+                >
+                    <img class="card-img-top" src="{{ asset('/uploads/' ~ figure.media|first.name) }}" alt="{{ figure.name }}" height="200rem;">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">{{ figure.name }}</h5>
+                        <p class="card-text justify-content-around">{{ figure.description > 100 ? figure.description|slice(0, 101)|split(' ')|slice(0, -1)|join(' ') ~ '…' : figure.description }}</p>
+                        <a href="{{ path('figure_show', {'slug': figure.slug}) }}" class="btn btn-primary">Voir la figure</a>
                     </div>
-                </div>
-            {% else %}
-                <div class="row gx-0 justify-content-center">
-                    <div class="col-lg-6"><img class="img-fluid" src="assets/img/demo-image-02.jpg" alt="..." /></div>
-                    <div class="col-lg-6 order-lg-first">
-                        <div class="bg-black text-center h-100 project">
-                            <div class="d-flex h-100">
-                                <div class="project-text w-100 my-auto text-center text-lg-right">
-                                    <a href="{{ path('figure_show', {'slug': figure.slug}) }}">
-                                        <h4 class="text-white">{{ figure.name }}</h4>
-                                        <p class="mb-0 text-white-50">{{ figure.description }}</p>
-                                    </a>
-                                    <hr class="d-none d-lg-block mb-0 me-0" />
-                                    {% if app.user %}
-                                        <div class="d-flex justify-content-around">
-                                            <a href="{{ path('figure_edit', {'id': figure.id}) }}">
-                                                <i class="fas fa-edit edit-icon"></i>
-                                            </a>
-                                            <form method="post" 
-                                                action="{{ path('figure_delete', {'id': figure.id}) }}" 
-                                                onsubmit="return confirm('Êtes-vous sur de vouloir supprimer cette figure?');"
-                                            >
-                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ figure.id) }}">
-                                                <button class="submit-button" type="submit"><i class="fas fa-trash-alt edit-icon"></i></button>
-                                            </form>
-                                        </div>
-                                    {% endif %}
-                                </div>
-                            </div>
+                    {% if app.user %}
+                        <div class="d-flex justify-content-around edit-button">
+                            <a href="{{ path('figure_edit', {'id': figure.id}) }}">
+                                <i class="fas fa-edit edit-icon"></i>
+                                Editer
+                            </a>
+                            <form method="post" 
+                                action="{{ path('figure_delete', {'id': figure.id}) }}" 
+                                onsubmit="return confirm('Êtes-vous sur de vouloir supprimer cette figure?');"
+                            >
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ figure.id) }}">
+                                <button class="submit-button" type="submit"><i class="fas fa-trash-alt edit-icon"></i>&nbsp;Supprimer</button>
+                            </form>
                         </div>
-                    </div>
+                    {% endif %}
                 </div>
-            {% endif %}
-        {% endfor %}
+                
+            {% endfor %}
+        </div>     
     </div>
 </section>
-
 {% endblock %}

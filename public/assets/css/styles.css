@@ -11701,3 +11701,23 @@ body {
     padding: 0px;
     border: none;   
 }
+
+.edit-icon {
+    color: #50817e;
+}
+
+.projects-section a {
+    text-decoration: none;
+}
+
+.projects-section button {
+    color: #50817e;
+}
+
+.edit-button {
+    margin-bottom: 2rem;
+}
+
+.hp-card {
+    margin-right: 2rem;
+}

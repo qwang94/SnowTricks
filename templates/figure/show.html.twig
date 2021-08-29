@@ -9,29 +9,31 @@
 
 {% block body %}
 <div class="container" id="figure-container">
-    <div class="img-fluid">
-        <img class="figure-hero img-fluid img-thumbnail" src="{{ asset('/uploads/' ~ figure.media|first.name)}}" alt="{{ figure.name }}">
-        <h1 class="title p-1">
-            {{ figure.name }}
-        </h1>
+    <div class="text-center">
+        <div class="img-fluid">
+            <img class="figure-hero img-fluid img-thumbnail" src="{{ asset('/uploads/' ~ figure.media|first.name)}}" alt="{{ figure.name }}">
+            <h1 class="title p-1">
+                {{ figure.name }}
+            </h1>
+        </div>
+        <div class="row mt-3">
+            {% for image in figure.media %}
+                <img class="col-md-2 img-fluid img-thumbnail" src="{{ asset('/uploads/' ~ image.name)}}" alt="{{ figure.name }}">
+            {% endfor %}
+            {% for video in figure.videos %}
+                <iframe 
+                    class="col-md-2"
+                    src="{{ video.source }}" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            {% endfor %}
+        </div>
     </div>
-    <div class="row">
-        {% for image in figure.media %}
-            <img class="col-md-2 img-fluid img-thumbnail" src="{{ asset('/uploads/' ~ image.name)}}" alt="{{ figure.name }}">
-        {% endfor %}
-        {% for video in figure.videos %}
-            <iframe 
-                class="col-md-2"
-                src="{{ video.source }}" 
-                title="YouTube video player" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-            </iframe>
-        {% endfor %}
-        
-    </div>
-    <p class="content text-justify">
+
+    <p class="content text-justify mt-3 mb-3">
         {{ figure.description }}
     </p>
     <div class="row">
