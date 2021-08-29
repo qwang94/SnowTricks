@@ -12,6 +12,7 @@
         <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
         <link rel="stylesheet" href="/assets/css/styles.css">
+        <link rel="stylesheet" href="/assets/css/preloader.css">
         {% block stylesheets %}
 
         {% endblock %}
@@ -20,11 +21,20 @@
 
         {% endblock %}
     </head>
-    <body>
+    <body id="top">
+        <div id="preloader">
+            <div id="loader" class="dots-jump">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
       {% include "partials/header.html.twig" %}
       {% block body %}{% endblock %}
       {% include "partials/footer.html.twig" %}
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
       <script src="/assets/js/scripts.js"></script>
+      <script src="/assets/js/scroll.js"></script>
     </body>
 </html>
