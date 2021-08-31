@@ -8,10 +8,16 @@
 {% endblock %}
 
 {% block body %}
+<script type="text/javascript">
+    change = src => {
+        document.getElementById('main-figure-image').src = src
+    }
+</script>
+
 <div class="container" id="figure-container">
     <div class="text-center">
         <div class="img-fluid">
-            <img class="figure-hero img-fluid img-thumbnail" src="{{ asset('/uploads/' ~ figure.media|first.name)}}" alt="{{ figure.name }}">
+            <img class="figure-hero img-fluid img-thumbnail" id="main-figure-image" src="{{ asset('/uploads/' ~ figure.media|first.name)}}" alt="{{ figure.name }}">
         </div>
         {% if app.user %}
             <div class="d-flex justify-content-around edit-button">
@@ -30,11 +36,16 @@
         {% endif %}
         <div class="row mt-3">
             {% for image in figure.media %}
-                <img class="col-md-2 img-fluid img-thumbnail" src="{{ asset('/uploads/' ~ image.name)}}" alt="{{ figure.name }}">
+                <img 
+                    class="col-md-2 img-fluid img-thumbnail figure-image"
+                    onclick="change(src)" 
+                    src="{{ asset('/uploads/' ~ image.name)}}" 
+                    alt="{{ figure.name }}" >
             {% endfor %}
             {% for video in figure.videos %}
                 <iframe 
-                    class="col-md-2"
+                    class="col-md-3"
+                    width="500rem"
                     src="{{ video.source }}" 
                     title="YouTube video player" 
                     frameborder="0" 
@@ -89,4 +100,6 @@
         {{ include('figure/comment.html.twig', {comments: comments}) }}
     </div>
 </div>
+
 {% endblock %}
+

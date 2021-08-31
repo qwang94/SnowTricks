@@ -70,7 +70,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $comments;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable="true")
+     * @ORM\Column(type="string", length=255, nullable="true", options = {"default": "/assets/img/boy.png"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $photo;

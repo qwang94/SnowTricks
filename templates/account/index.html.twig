@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+{% set user = app.user %}
+
+{% block title %}Hello {{ user.getFirstname() }}{% endblock %}
+{% block stylesheets %}
+  <link rel="stylesheet" href="/assets/css/account.css">
+{% endblock %}
+{% block body %}
+<div class="page-content page-container mx-auto" id="page-content">
+    <div class="padding">
+        <div class="row container d-flex justify-content-center mx-auto">
+            <div class="col-xl-6 col-md-12">
+                <div class="card user-card-full">
+                    <div class="row m-l-0 m-r-0">
+                        <div class="col-sm-4 bg-c-lite-green user-profile">
+                            <div class="card-block text-center text-white">
+                                <div class="m-b-25"> <img src="/assets/img/boy.png" class="img-radius" alt="User-Profile-Image"> </div>
+                                <h6 class="f-w-600">{{ user.getFirstname }} {{ user.getLastname }}</h6>
+                                <p>Amateur</p> <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="card-block">
+                                <div class="row">
+                                    <h6 class="m-b-20 p-b-5 b-b-default f-w-600 col-sm-6">Information</h6>
+                                    <a href="#" class="m-b-20 p-b-5 b-b-default f-w-600 col-sm-6">Modifier</a>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <p class="m-b-10 f-w-600">Email</p>
+                                        <h6 class="text-muted f-w-400">{{ user.getEmail() }}</h6>
+                                    </div>
+                                </div>
+                                <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Figures</h6>
+                                <div class="row">
+                                    {% for figure in user.getFigures %}
+                                        <div class="col-sm-6">
+                                            <p class="m-b-10 f-w-600">{{ figure.name }}</p>
+                                        </div>
+                                    {% endfor %}
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
