@@ -70,10 +70,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $comments;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable="true", options = {"default": "/assets/img/boy.png"})
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\OneToOne(targetEntity=media::class, cascade={"persist", "remove"})
      */
-    private $photo;
+    private $media;
 
     public function __construct()
     {
@@ -273,14 +272,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPhoto(): ?string
+    public function getMedia(): ?media
     {
-        return $this->photo;
+        return $this->media;
     }
 
-    public function setPhoto(string $photo): self
+    public function setMedia(?media $media): self
     {
-        $this->photo = $photo;
+        $this->media = $media;
 
         return $this;
     }
