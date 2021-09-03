@@ -41,35 +41,17 @@ class AccountType extends AbstractType
                 'class' => 'form-floating',
               ],
             ])
-            ->add('plainPassword', RepeatedType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
-                'type'  => PasswordType::class,
+            ->add('media', FileType::class, [
+                'label' => 'Ajouter une photo de profil',
+                'multiple' => false,
                 'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password'],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter a password',
-                    ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
-                ],
-                'first_options' => [
-                  'label' => 'Mot de Passe',
-                  'row_attr' => [
-                    'class' => 'form-floating',
+                'required' => false,
+                'row_attr' => [
+                    'class' => 'form-group figure-field col-md-6',
                   ],
-                 ],
-                'second_options' => [
-                  'label' => 'Confirmez votre mot de passe',
-                  'row_attr' => [
-                    'class' => 'form-floating',
-                  ],
-                ],
+                'attr' => [
+                    'class' => 'form-control-file',
+                ]
             ])
         ;
     }

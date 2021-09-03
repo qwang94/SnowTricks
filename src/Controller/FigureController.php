@@ -79,7 +79,7 @@ class FigureController extends AbstractController
     }
 
     /**
-     * @Route("/{slug}", name="figure_show", methods={"GET"})
+     * @Route("/{slug}", name="figure_show", methods={"GET|POST"})
      */
     public function show(
         Figure $figure,
@@ -107,7 +107,7 @@ class FigureController extends AbstractController
             $comment = $form->getData();
             $commentService->addComment($comment, $figure, $user);
 
-            $this->redirectToRoute('show', ['slug' => $figure->getSlug()]);
+            $this->redirectToRoute('figure_show', ['slug' => $figure->getSlug()]);
         }
 
         if (!$figure) {
@@ -154,7 +154,7 @@ class FigureController extends AbstractController
                       ->setType($extension);
                 $figure->addMedium($media)
                        ->setUser($user)
-                       ->setCreatedAt(new DateTime());
+                       ->setUpdatedAt(new DateTIme());
             }
             $figure->addVideo($video);
 

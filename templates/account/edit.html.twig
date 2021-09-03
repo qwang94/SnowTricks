@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+{% block stylesheets %}
+  <link rel="stylesheet" href="/assets/css/security.css">
+{% endblock %}
+
+{% block body %}
+    {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+    <div class="container">
+      <div class="text-center signin-title">
+        <h1 class="h3 mb-3 fw-normal">Créez votre compte</h1>
+      </div>
+      <div class="d-flex justify-content-center form-signin">
+        {{ form_start(form) }}
+          {{ form_row(form.username) }}
+          {{ form_row(form.firstname) }}
+          {{ form_row(form.lastname) }}
+          {{ form_row(form.email) }}
+          {{ form_row(form.media) }}
+          <button class="w-100 btn btn-lg btn-primary register-button" type="submit">Mettre à jour</button>
+        {{ form_end(form) }}
+      </div>
+    </div>
+{% endblock %}

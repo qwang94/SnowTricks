@@ -34,6 +34,11 @@ class Media
      */
     private $figure;
 
+    public function __construct()
+    {
+        $this->name = '/assets/img/boy.png';
+    }
+
     public function getId(): ?int
     {
         return $this->id;

@@ -70,7 +70,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $comments;
 
     /**
-     * @ORM\OneToOne(targetEntity=media::class, cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Media::class, cascade={"persist", "remove"})
      */
     private $media;
 

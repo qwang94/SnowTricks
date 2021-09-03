@@ -30,7 +30,7 @@
                     onsubmit="return confirm('Êtes-vous sur de vouloir supprimer cette figure?');"
                 >
                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ figure.id) }}">
-                    <button class="submit-button" type="submit"><i class="fas fa-trash-alt edit-icon"></i>&nbsp;Supprimer cette figure</button>
+                    <button class="submit-button delete-button" type="submit"><i class="fas fa-trash-alt edit-icon"></i>&nbsp;Supprimer cette figure</button>
                 </form>
             </div>
         {% endif %}

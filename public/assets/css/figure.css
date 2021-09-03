@@ -40,7 +40,11 @@
 }
 
 #figure-container button {
-    color: #50817e;
+    color: white;
+}
+
+#figure-container .delete-button {
+    color: #64a19d;
 }
 
 #figure-container .title {
