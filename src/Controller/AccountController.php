@@ -37,14 +37,15 @@ class AccountController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user = $form->getData();
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
             $this->redirectToRoute('account');
         }
 
-        return $this->render('account/edit.hmtl.twig', [
-            'form' => $form
+        return $this->render('account/edit.html.twig', [
+            'form' => $form->createView()
         ]);
         
     }

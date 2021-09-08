@@ -41,18 +41,6 @@ class AccountType extends AbstractType
                 'class' => 'form-floating',
               ],
             ])
-            ->add('media', FileType::class, [
-                'label' => 'Ajouter une photo de profil',
-                'multiple' => false,
-                'mapped' => false,
-                'required' => false,
-                'row_attr' => [
-                    'class' => 'form-group figure-field col-md-6',
-                  ],
-                'attr' => [
-                    'class' => 'form-control-file',
-                ]
-            ])
         ;
     }
 
