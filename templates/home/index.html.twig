@@ -11,11 +11,8 @@
         <div class="row">
             {% for figure in figures %}
                 <div class="card hp-card
-                    {% if loop.first %} 
-                        col-md-2 col-md-offset-1 
-                    {% else %} 
-                        col-md-2 
-                    {% endif %}" style="width: 18rem;"
+                    col-sm-3"
+                    style="width: 17.5rem"
                 >
                     <img class="card-img-top" src="{{ asset('/uploads/' ~ figure.media|first.name) }}" alt="{{ figure.name }}" height="200rem;">
                     <div class="card-body">

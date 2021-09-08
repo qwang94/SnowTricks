@@ -170,7 +170,7 @@ class FigureController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="figure_delete", methods={"POST"})
+     * @Route("/{id}/delete", name="figure_delete", methods={"POST"}, requirements={"id":"\d+"} )
      */
     public function delete(Request $request, Figure $figure): Response
     {
