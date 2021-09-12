@@ -3,20 +3,24 @@
 namespace App\Service;
 
 use App\Entity\Figure;
+use App\Entity\Media;
 use App\Entity\User;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class FigureService
 {
     private $manager;
-    private $flash;
+    private $params;
 
-    public function __construct(EntityManagerInterface $manager, FlashBagInterface $flash)
+    public function __construct(
+        EntityManagerInterface $manager, 
+        ParameterBagInterface $params
+        )
     {
         $this->manager = $manager;
-        $this->flash = $flash;
+        $this->params = $params;
     }
 
     public function addFigure(Figure $figure, User $user): void 
@@ -26,6 +30,26 @@ class FigureService
         
         $this->manager->persist($figure);
         $this->manager->flush();
-        $this->flash->add('success', 'Votre figure a bien été uploadé, merci !');
+    }
+
+    public function treatImage(Media $media, $image)
+    {
+        $extension = $image->guessExtension();
+        $file = md5(uniqid()) . '.' . $extension; 
+
+        $image->move(
+            $this->params->get('images_directory'),
+            $file
+        );
+
+        $media->setName($file)
+              ->setType($extension);
+    }
+
+    public function treatVideo($source)
+    {
+        $new_source = str_replace("watch?v=", "embed/", $source);
+
+        return $new_source;
     }
 }

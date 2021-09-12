@@ -12,6 +12,7 @@ use App\Repository\CategoryRepository;
 use App\Repository\CommentRepository;
 use App\Repository\FigureRepository;
 use App\Service\CommentService;
+use App\Service\FigureService;
 use DateTime;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,7 +31,10 @@ class FigureController extends AbstractController
     /**
      * @Route("/new", name="figure_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(
+        Request $request,
+        FigureService $figureService
+        ): Response
     {
         $figure = new Figure();
         $form = $this->createForm(FigureType::class, $figure);
@@ -42,32 +46,21 @@ class FigureController extends AbstractController
             
             $video = new Video();
             $source = $form->get('videos')->getData();
-            $embed_source = str_replace("watch?v=", "embed/", $source);
-            $video->setSource($embed_source);
+            
+            if (str_contains($source, "watch?v=")) {
+                $source = $figureService->treatVideo($source);
+            }
+
+            $video->setSource($source);
 
             foreach($images as $image) {
-                $extension = $image->guessExtension();
-                $file = md5(uniqid()) . '.' . $extension; 
-                
-                $image->move(
-                    $this->getParameter('images_directory'),
-                    $file
-                );
-
                 $media = new Media();
-                $media->setName($file)
-                      ->setType($extension);
-
-                $figure->addMedium($media)
-                       ->setUser($user)
-                       ->setCreatedAt(new DateTime());
+                $figureService->treatImage($media, $image);
+                $figure->addMedium($media);
             }
             
             $figure->addVideo($video);
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($figure);
-            $entityManager->flush();
+            $figureService->addFigure($figure, $user);
 
             return $this->redirectToRoute('figure_show', ['slug' => $figure->getSlug()]);
         }
