@@ -20,10 +20,16 @@ git clone lienHTTPS
 
 7.Ouvrez le dossier contenant le projet avec un éditeur de texte type VsCode
 
+8.ajoutez un fichier .env dans le racine du projet, puis dans le fichier mettre : 
+    APP_ENV=dev
+    APP_SECRET=541f0c25cf7d2eb3194c863f713ac551
+    MAILER_DSN=votre paramètre mailer
+    DATABASE_URL="sqlite:///%kernel.project_dir%/var/snowtricks.db"  
+
 8.Installer une extention qui se nomme "Sqlite"
 
 9.Importer le fichier des données dans votre dossier projet
 
 10.Faites enfin "composer install" dans votre ligne de commande pour installer toutes les dépendances
 
-11.Mainteant le projet devrait être correctement installé sur votre machine, vous pouvez consulter le site web en faisant un "symfony" serve ou "php bin/console server:start" pour lancer le projet.
+11.Mainteant le projet devrait être correctement installé sur votre machine, vous pouvez consulter le site web en faisant un "symfony serve" ou "php bin/console server:start" pour lancer le projet.

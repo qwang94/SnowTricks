@@ -12,6 +12,7 @@
             {% for figure in figures %}
                 <div class="card hp-card
                     col-sm-3"
+                    id="figure"
                     style="width: 17.5rem"
                 >
                     <img class="card-img-top" src="{{ asset('/uploads/' ~ figure.media|first.name) }}" alt="{{ figure.name }}" height="200rem;">
